@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+#include <memory>
+
+#include "displayManager.h"
+#include "mainController.h"
 #include "pico/stdlib.h"
 #include "pulseCounter.h"
 #define buttonPin 17
@@ -8,6 +12,17 @@
 int main() {
     stdio_init_all();
     irq_set_enabled(IO_IRQ_BANK0, true);  // enable interrupts with callbacks on core
+
+    std::shared_ptr<displayManager> manager(new displayManager());
+    std::shared_ptr<mainController> controller(new mainController(buttonPin, manager));
+    manager->setController(controller);
+    controller->addButton(18);
+    manager->changeView();
+    controller->buttonPressed(18);
+    controller->mainLoop();
+
+    manager.reset();
+    controller.reset();
 
     bool led = false;
     gpio_init(PICO_DEFAULT_LED_PIN);
@@ -19,9 +34,10 @@ int main() {
     counter.startCounting();
 
     while (true) {
-        sleep_ms(300);
+        sleep_ms(1000);
         gpio_put(PICO_DEFAULT_LED_PIN, led);
         led = !led;
-        printf("last period counts: %u\n", counter.getCountsInLastPeriod());
+        printf("total: %u\n", counter.getTotalCount());
+        // controller->mainLoop();
     }
 }
