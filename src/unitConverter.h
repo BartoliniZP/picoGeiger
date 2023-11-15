@@ -11,7 +11,7 @@ class unitConverter {
         cps
     };
     struct iUnitListener {
-        virtual void onUnitChange();
+        virtual void onUnitChange() = 0;
         virtual ~iUnitListener() noexcept = default;
     };
     inline static const char* unitStrings[4]{"uSv/h", "cpm", "total", "cps"};

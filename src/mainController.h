@@ -4,6 +4,8 @@
 #include <map>
 #include <memory>
 
+#include "utils/callableWrapper.hpp"
+#define irqEgdeLowEventMask 0b100
 #include "iController.h"
 #include "pico/stdlib.h"
 class displayManager;
@@ -20,7 +22,24 @@ class mainController {
     void buttonPressed(unsigned id);
     void mainLoop();
     void setActiveController(const std::shared_ptr<iController>& ref);
-    void addButton(unsigned pin);
+    template <unsigned id>
+    void addButton();
 };
+
+template <unsigned buttonPin>
+void mainController::addButton() {
+    buttonPressesToHandle[buttonPin] = false;
+    gpio_init(buttonPin);
+    gpio_set_dir(buttonPin, GPIO_IN);
+    gpio_pull_down(buttonPin);
+    gpio_set_irq_enabled(buttonPin, irqEgdeLowEventMask, true);
+    callbacks[buttonPin] = callableWrapper<buttonPin>([this, bp = buttonPin]() {  // as callable wrapper
+        if (gpio_get_irq_event_mask(bp) & irqEgdeLowEventMask) {
+            gpio_acknowledge_irq(bp, irqEgdeLowEventMask);
+            this->buttonPressed(bp);
+        }
+    });
+    gpio_add_raw_irq_handler(buttonPin, callbacks[buttonPin]);
+}
 
 #endif
