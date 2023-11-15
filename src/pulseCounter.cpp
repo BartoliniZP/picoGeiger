@@ -66,7 +66,11 @@ void pulseCounter::setView(const std::shared_ptr<iPulseCounterView> &ref) {
 }
 
 unsigned pulseCounter::getCountsInLastPeriod() {
-    return std::accumulate(lastPeriod.begin(), lastPeriod.end(), 0);
+    if (counting) {
+        return std::accumulate(lastPeriod.begin(), lastPeriod.end(), 0);
+    } else {
+        return 0;
+    }
 }
 
 unsigned pulseCounter::getMeasurementTime() {

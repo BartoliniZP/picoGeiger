@@ -6,6 +6,8 @@
 #include "mainController.h"
 #include "pico/stdlib.h"
 #include "pulseCounter.h"
+#include "unitConverter.h"
+#define SBM20_CONVERSION_RATE 0.0056
 #define buttonPin 17
 #define geigerPin 16
 
@@ -28,16 +30,19 @@ int main() {
     gpio_init(PICO_DEFAULT_LED_PIN);
     gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
 
-    pulseCounter counter{15, geigerPin};
-    counter.startCounting();
-    counter.pauseCounting();
-    counter.startCounting();
+    std::shared_ptr<pulseCounter> counter{new pulseCounter(15, geigerPin)};
+    counter->startCounting();
+    counter->pauseCounting();
+    counter->startCounting();
+
+    unitConverter converter{SBM20_CONVERSION_RATE, counter};
+    converter.setUnit(unitConverter::usvh);
 
     while (true) {
         sleep_ms(1000);
         gpio_put(PICO_DEFAULT_LED_PIN, led);
         led = !led;
-        printf("total: %u\n", counter.getTotalCount());
+        printf("%s: %f\n", converter.getSelectedUnitName(), converter.getSelectedUnitValue());
         // controller->mainLoop();
     }
 }
