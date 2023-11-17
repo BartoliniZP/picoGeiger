@@ -9,18 +9,19 @@
 #include "pulseCounter.h"
 #include "unitConverter.h"
 #define SBM20_CONVERSION_RATE 0.0056
-#define buttonPin 14
-#define geigerPin 16
+#define viewChangebutton 15
+#define geigerPin 12
+#define button1 14
 
 int main() {
     stdio_init_all();
     irq_set_enabled(IO_IRQ_BANK0, true);  // enable interrupts with callbacks on core
 
     std::shared_ptr<displayManager> manager(new displayManager());
-    std::shared_ptr<mainController> controller(new mainController(buttonPin, manager));
+    std::shared_ptr<mainController> controller(new mainController(viewChangebutton, manager));
     manager->setController(controller);
-    controller->addButton<buttonPin>();
-    controller->addButton<15>();
+    controller->addButton<viewChangebutton>();
+    controller->addButton<button1>();
 
     bool led = false;
     gpio_init(PICO_DEFAULT_LED_PIN);
@@ -32,7 +33,7 @@ int main() {
     std::shared_ptr<unitConverter> converter{new unitConverter{SBM20_CONVERSION_RATE, counter}};
     converter->setUnit(unitConverter::usvh);
 
-    std::shared_ptr<LiquidCrystal_I2C> lcd(new LiquidCrystal_I2C(16, 2, 0U, 0x27));
+    std::shared_ptr<LiquidCrystal_I2C> lcd(new LiquidCrystal_I2C(16, 17, 16, 2, 0U, 0x27));
     lcd->backlight();
     lcd->setCursor(0, 0);
     lcd->printStr("test");

@@ -2,10 +2,12 @@
 #define LiquidCrystal_I2C_h
 
 #include <stdio.h>
+
 #include <string>
-#include "pico/stdlib.h"
+
 #include "hardware/i2c.h"
 #include "pico/binary_info.h"
+#include "pico/stdlib.h"
 // commands
 #define LCD_CLEARDISPLAY 0x01
 #define LCD_RETURNHOME 0x02
@@ -48,16 +50,15 @@
 #define LCD_BACKLIGHT 0x08
 #define LCD_NOBACKLIGHT 0x00
 
-#define En 0b00000100 // Enable bit
-#define Rw 0b00000010 // Read/Write bit
-#define Rs 0b00000001 // Register select bit
+#define En 0b00000100  // Enable bit
+#define Rw 0b00000010  // Read/Write bit
+#define Rs 0b00000001  // Register select bit
 
 #define DEF_ADDR 0x27
 
-class LiquidCrystal_I2C
-{
-public:
-    LiquidCrystal_I2C(uint8_t lcd_cols, uint8_t lcd_rows, uint8_t dotsize = LCD_5x8DOTS, uint8_t lcd_Addr = DEF_ADDR);
+class LiquidCrystal_I2C {
+   public:
+    LiquidCrystal_I2C(uint sda, uint scl, uint8_t lcd_cols, uint8_t lcd_rows, uint8_t dotsize = LCD_5x8DOTS, uint8_t lcd_Addr = DEF_ADDR);
     void write(char);
     void expanderWrite(uint8_t val);
     void send(uint8_t val, int mode);
@@ -88,7 +89,9 @@ public:
     uint getRows();
     uint getColumns();
 
-private:
+   private:
+    uint SDA;
+    uint SCL;
     uint8_t _Addr;
     uint8_t _displayfunction;
     uint8_t _displaycontrol;
