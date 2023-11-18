@@ -3,7 +3,7 @@
 #include <cmath>
 
 #include "measurementViewController.h"
-measurementView::measurementView(const std::shared_ptr<LiquidCrystal_I2C>& lcd, const std::shared_ptr<unitConverter>& data, unsigned short rowToDisplay) : lcd(lcd), data(data), row(rowToDisplay), previouslyDisplayedValueLength(0), leftMargin(0), measurementToUpdate(false), enabled(false) {
+measurementView::measurementView(const std::shared_ptr<LiquidCrystal_I2C>& lcd, const std::shared_ptr<unitConverter>& data, unsigned short rowToDisplay, const std::shared_ptr<iController>& controller) : lcd(lcd), data(data), controller(controller), row(rowToDisplay), previouslyDisplayedValueLength(0), leftMargin(0), measurementToUpdate(false), enabled(false) {
 }
 
 void measurementView::mainLoop() {  // only refresh value if needed
@@ -67,6 +67,8 @@ void measurementView::enable() {
 }
 
 void measurementView::disable() {
+    if (enabled) clean();
+    enabled = false;
 }
 
 void measurementView::updateMeasurement() {
@@ -74,5 +76,5 @@ void measurementView::updateMeasurement() {
 }
 
 std::shared_ptr<iController> measurementView::getController() {
-    return std::shared_ptr<iController>(new measurementViewController());
+    return controller;
 }

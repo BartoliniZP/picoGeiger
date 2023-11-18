@@ -12,6 +12,7 @@
 class measurementView : public iView, public pulseCounter::iPulseCounterView, public unitConverter::iUnitListener {
     std::shared_ptr<LiquidCrystal_I2C> lcd;
     std::weak_ptr<unitConverter> data;
+    std::shared_ptr<iController> controller;
     unsigned short row;
     unsigned short previouslyDisplayedValueLength;
     unsigned short leftMargin;
@@ -23,7 +24,7 @@ class measurementView : public iView, public pulseCounter::iPulseCounterView, pu
     void display();
 
    public:
-    measurementView(const std::shared_ptr<LiquidCrystal_I2C>& lcd, const std::shared_ptr<unitConverter>& data, unsigned short rowToDisplay);
+    measurementView(const std::shared_ptr<LiquidCrystal_I2C>& lcd, const std::shared_ptr<unitConverter>& data, unsigned short rowToDisplay, const std::shared_ptr<iController>& controller);
     void mainLoop();
     virtual void updateMeasurement() override;
     virtual void onUnitChange() override;
