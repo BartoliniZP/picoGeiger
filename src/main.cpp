@@ -13,6 +13,9 @@
 #include "settingsModel.h"
 #include "settingsView.h"
 #include "settingsViewController.h"
+#include "stopwatchModel.h"
+#include "stopwatchView.h"
+#include "stopwatchViewController.h"
 #include "unitConverter.h"
 #include "unitSetting.h"
 #define SBM20_CONVERSION_RATE 0.0056
@@ -36,7 +39,8 @@ int main() {
     gpio_init(PICO_DEFAULT_LED_PIN);
     gpio_set_dir(PICO_DEFAULT_LED_PIN, GPIO_OUT);
 
-    std::shared_ptr<LiquidCrystal_I2C> lcd(new LiquidCrystal_I2C(16, 17, 16, 2, 0U, 0x27));
+    std::shared_ptr<LiquidCrystal_I2C>
+        lcd(new LiquidCrystal_I2C(16, 17, 16, 2, 0U, 0x27));
     lcd->backlight();
     lcd->setCursor(0, 0);
     lcd->printStr("test");
@@ -52,6 +56,10 @@ int main() {
     converter->setUnitListener(view);
     manager->addView(view);
 
+    std::shared_ptr<stopwatchModel> stopwatch(new stopwatchModel());
+    std::shared_ptr<stopwatchView> stopwView(new stopwatchView(lcd, stopwatch, std::shared_ptr<iController>(new stopwatchViewController(stopwatch, button1, button2)), 0));
+    manager->addView(stopwView);
+
     std::shared_ptr<settingsModel> settings(new settingsModel());
     settings->addSetting(std::shared_ptr<setting>(new measurementTimeSetting(counter)));
     settings->addSetting(std::shared_ptr<setting>(new unitSetting(converter)));
@@ -62,10 +70,11 @@ int main() {
     manager->addView(sView);
 
     while (true) {
-        sleep_ms(1000);
+        sleep_ms(100);
         gpio_put(PICO_DEFAULT_LED_PIN, led);
         led = !led;
         controller->mainLoop();
         view->mainLoop();
+        stopwView->mainLoop();
     }
 }
