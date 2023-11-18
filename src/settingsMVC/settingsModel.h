@@ -3,15 +3,10 @@
 #include <memory>
 #include <vector>
 
-#include "setting.h"
+class iSettingsView;
+class setting;
 class settingsModel {
    public:
-    struct iSettingsView {
-        virtual void onActiveSettingChange() = 0;
-        virtual void onSettingValueChange() = 0;
-        ~iSettingsView() noexcept = default;
-    };
-
    private:
     std::vector<std::shared_ptr<setting>> settings;
     unsigned int activeSettingIndex;

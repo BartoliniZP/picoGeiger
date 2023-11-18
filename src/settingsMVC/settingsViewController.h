@@ -2,8 +2,8 @@
 #define SETTINGSVIEWCONTROLLER_H
 #include <memory>
 
-#include "iController.h"
-#include "settingsModel.h"
+#include "../iController.h"
+class settingsModel;
 class settingsViewController : public iController {
     std::weak_ptr<settingsModel> settings;
     unsigned changeSettingButtonID;

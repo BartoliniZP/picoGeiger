@@ -1,15 +1,16 @@
 #ifndef MEASUREMENTVIEW_H
 #define MEASUREMENTVIEW_H
+
 #include <memory>
 #include <string>
 
-#include "LCDI2C/LiquidCrystal_I2C.h"
-#include "iController.h"
-#include "iView.h"
-#include "pulseCounter.h"
-#include "unitConverter.h"
-
-class measurementView : public iView, public pulseCounter::iPulseCounterView, public unitConverter::iUnitListener {
+#include "../iView.h"
+#include "iPulseCounterView.h"
+#include "iUnitListener.h"
+class LiquidCrystal_I2C;
+class unitConverter;
+class iController;
+class measurementView : public iView, public iPulseCounterView, public iUnitListener {
     std::shared_ptr<LiquidCrystal_I2C> lcd;
     std::weak_ptr<unitConverter> data;
     std::shared_ptr<iController> controller;

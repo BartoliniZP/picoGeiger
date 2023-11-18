@@ -3,8 +3,9 @@
 #include <memory>
 #include <string>
 
-#include "LCDI2C/LiquidCrystal_I2C.h"
-#include "setting.h"
+#include "../settingsMVC/setting.h"
+
+class LiquidCrystal_I2C;
 class backlightSetting : public setting {
     std::weak_ptr<LiquidCrystal_I2C> lcd;
 

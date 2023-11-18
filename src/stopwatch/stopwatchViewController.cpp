@@ -1,5 +1,6 @@
 #include "stopwatchViewController.h"
 
+#include "stopwatchModel.h"
 stopwatchViewController::stopwatchViewController(const std::shared_ptr<stopwatchModel>& stopwatch, unsigned pauseButtonID, unsigned resetButtonID) : stopwatch(stopwatch), pauseButtonID(pauseButtonID), resetButtonID(resetButtonID) {
 }
 

@@ -1,5 +1,8 @@
 #include "settingsView.h"
 
+#include "../LCDI2C/LiquidCrystal_I2C.h"
+#include "setting.h"
+#include "settingsModel.h"
 #include "settingsViewController.h"
 settingsView::settingsView(const std::shared_ptr<LiquidCrystal_I2C> &lcd_ref, const std::shared_ptr<settingsModel> &data_ref, unsigned short rowIndex, const std::shared_ptr<iController> &controller) : lcd(lcd_ref), data(data_ref), controller(controller), settingValueFirstLetterPosition(0), displayRow(rowIndex), isEnabled(false) {
 }

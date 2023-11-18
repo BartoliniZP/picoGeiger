@@ -3,8 +3,9 @@
 #include <memory>
 #include <string>
 
-#include "pulseCounter.h"
-#include "setting.h"
+#include "../settingsMVC/setting.h"
+
+class pulseCounter;
 class measurementTimeSetting : public setting {
     std::weak_ptr<pulseCounter> counter;
 

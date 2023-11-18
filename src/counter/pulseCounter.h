@@ -1,16 +1,13 @@
 #ifndef PULSECOUNTER_H
 #define PULSECOUNTER_H
+
 #include <deque>
 #include <memory>
 
 #include "pico/stdlib.h"
+class iPulseCounterView;
 class pulseCounter {
    public:
-    struct iPulseCounterView {
-        virtual void updateMeasurement() = 0;  // this function is called on timer callback, it should be lightweight e.g. only annotating that measurement should be changed, real actions about measurement changes should happen in main loop
-        virtual ~iPulseCounterView() noexcept = default;
-    };
-
    private:
     unsigned long totalCount;
     unsigned measurementTime;

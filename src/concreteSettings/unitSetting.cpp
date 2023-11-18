@@ -1,5 +1,6 @@
 #include "unitSetting.h"
 
+#include "../counter/unitConverter.h"
 unitSetting::unitSetting(const std::shared_ptr<unitConverter>& ref) : unitData(ref) {
 }
 

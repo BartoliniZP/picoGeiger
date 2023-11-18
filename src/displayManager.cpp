@@ -1,5 +1,6 @@
 #include "displayManager.h"
 
+#include "iView.h"
 #include "mainController.h"
 
 void displayManager::setController(const std::shared_ptr<mainController> &controllerRef) {

@@ -3,10 +3,11 @@
 
 #include <memory>
 
-#include "LCDI2C/LiquidCrystal_I2C.h"
-#include "iView.h"
-#include "settingsModel.h"
-class settingsView : public iView, public settingsModel::iSettingsView {
+#include "../iView.h"
+#include "iSettingsView.h"
+class LiquidCrystal_I2C;
+class settingsModel;
+class settingsView : public iView, public iSettingsView {
     std::shared_ptr<LiquidCrystal_I2C> lcd;
     std::weak_ptr<settingsModel> data;
     std::shared_ptr<iController> controller;

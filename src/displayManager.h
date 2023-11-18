@@ -3,8 +3,8 @@
 #include <memory>
 #include <vector>
 
-#include "iView.h"
 
+class iView;
 class mainController;
 class displayManager {
     std::vector<std::shared_ptr<iView>> views;

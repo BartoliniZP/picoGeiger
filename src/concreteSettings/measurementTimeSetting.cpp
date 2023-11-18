@@ -1,5 +1,6 @@
 #include "measurementTimeSetting.h"
 
+#include "../counter/pulseCounter.h"
 measurementTimeSetting::measurementTimeSetting(const std::shared_ptr<pulseCounter>& ref) : counter(ref) {
 }
 

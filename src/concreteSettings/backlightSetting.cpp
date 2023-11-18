@@ -1,5 +1,6 @@
 #include "backlightSetting.h"
 
+#include "../LCDI2C/LiquidCrystal_I2C.h"
 backlightSetting::backlightSetting(const std::shared_ptr<LiquidCrystal_I2C>& ref) : lcd(ref) {
 }
 

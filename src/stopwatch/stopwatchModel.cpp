@@ -1,5 +1,6 @@
 #include "stopwatchModel.h"
 
+#include "../utils/time.h"
 void stopwatchModel::start() {
     if (isGoing) return;
 

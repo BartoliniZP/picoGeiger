@@ -2,6 +2,9 @@
 
 #include <cmath>
 #include <string>
+
+#include "../LCDI2C/LiquidCrystal_I2C.h"
+#include "stopwatchModel.h"
 stopwatchView::stopwatchView(const std::shared_ptr<LiquidCrystal_I2C>& lcd, const std::shared_ptr<stopwatchModel>& stopwatch, const std::shared_ptr<iController>& controller, unsigned row) : lcd(lcd), stopwatch(stopwatch), controller(controller), previouslyDisplayedTime{0, 0, 0}, margin(0), displayRow(row), isEnabled(false) {
 }
 

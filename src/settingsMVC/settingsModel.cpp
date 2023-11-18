@@ -1,5 +1,8 @@
 #include "settingsModel.h"
 
+#include "iSettingsView.h"
+#include "setting.h"
+
 void settingsModel::addSetting(const std::shared_ptr<setting>& sett) {
     settings.push_back(sett);
 }

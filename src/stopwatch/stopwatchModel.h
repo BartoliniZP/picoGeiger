@@ -1,8 +1,8 @@
 #ifndef STOPWATCHMODEL_H
 #define STOPWATCHMODEL_H
-#include "pico/stdlib.h"
-#include "utils/time.h"
 
+#include "pico/stdlib.h"
+class time;
 class stopwatchModel {
     uint64_t startPoint;
     uint64_t pausePoint : 63;

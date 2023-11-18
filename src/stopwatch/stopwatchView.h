@@ -2,9 +2,10 @@
 #define STOPWATCHVIEW_H
 #include <memory>
 
-#include "LCDI2C/LiquidCrystal_I2C.h"
-#include "iView.h"
-#include "stopwatchModel.h"
+#include "../iView.h"
+#include "../utils/time.h"
+class LiquidCrystal_I2C;
+class stopwatchModel;
 class stopwatchView : public iView {
     std::shared_ptr<LiquidCrystal_I2C> lcd;
     std::weak_ptr<stopwatchModel> stopwatch;

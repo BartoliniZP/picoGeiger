@@ -1,5 +1,6 @@
 #include "settingsViewController.h"
 
+#include "settingsModel.h"
 settingsViewController::settingsViewController(const std::shared_ptr<settingsModel>& settings, unsigned changeSettingButtonID, unsigned changeSettingValueButtonID) : settings(settings), changeSettingButtonID(changeSettingButtonID), changeSettingValueButtonID(changeSettingValueButtonID) {
 }
 

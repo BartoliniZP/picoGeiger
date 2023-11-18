@@ -2,8 +2,8 @@
 #define STOPWATCHVIEWCONTROLLER_H
 #include <memory>
 
-#include "iController.h"
-#include "stopwatchModel.h"
+#include "../iController.h"
+class stopwatchModel;
 class stopwatchViewController : public iController {
     std::weak_ptr<stopwatchModel> stopwatch;
     unsigned pauseButtonID;

@@ -1,8 +1,10 @@
 #include "pulseCounter.h"
 #define irqEgdeLowEventMask 0b100
+
 #include <numeric>
 
-#include "utils/callableWrapper.hpp"
+#include "../utils/callableWrapper.hpp"
+#include "iPulseCounterView.h"
 pulseCounter::pulseCounter(unsigned measurementTimeInSeconds, unsigned pulsePin) : totalCount(0), measurementTime(measurementTimeInSeconds), pulsePin(pulsePin), counting(false), currentSecondCount(0), pulseCallback(wrapper([this, pulsePin]() { 
             if(gpio_get_irq_event_mask(pulsePin)&irqEgdeLowEventMask) {
             gpio_acknowledge_irq(pulsePin, irqEgdeLowEventMask);

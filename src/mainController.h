@@ -6,8 +6,9 @@
 
 #include "utils/callableWrapper.hpp"
 #define irqEgdeLowEventMask 0b100
-#include "iController.h"
+
 #include "pico/stdlib.h"
+class iController;
 class displayManager;
 class mainController {
     std::shared_ptr<iController> activeController;

@@ -3,8 +3,8 @@
 #include <memory>
 #include <string>
 
-#include "setting.h"
-#include "unitConverter.h"
+#include "../settingsMVC/setting.h"
+class unitConverter;
 class unitSetting : public setting {
     std::weak_ptr<unitConverter> unitData;
 

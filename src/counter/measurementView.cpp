@@ -1,8 +1,14 @@
 #include "measurementView.h"
 
 #include <cmath>
+#include <memory>
+#include <string>
 
+#include "../LCDI2C/LiquidCrystal_I2C.h"
+#include "../iController.h"
 #include "measurementViewController.h"
+#include "pulseCounter.h"
+#include "unitConverter.h"
 measurementView::measurementView(const std::shared_ptr<LiquidCrystal_I2C>& lcd, const std::shared_ptr<unitConverter>& data, unsigned short rowToDisplay, const std::shared_ptr<iController>& controller) : lcd(lcd), data(data), controller(controller), row(rowToDisplay), previouslyDisplayedValueLength(0), leftMargin(0), measurementToUpdate(false), enabled(false) {
 }
 

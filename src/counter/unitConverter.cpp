@@ -1,5 +1,6 @@
 #include "unitConverter.h"
 
+#include "iUnitListener.h"
 #include "pulseCounter.h"
 
 unitConverter::unitConverter(float conversionTouSvRate, const std::shared_ptr<pulseCounter>& counter) : selectedUnit(cpm), conversionRate(conversionTouSvRate), counter(counter) {

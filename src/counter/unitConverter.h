@@ -2,6 +2,7 @@
 #define UNITCONVERTER_H
 #include <memory>
 class pulseCounter;
+class iUnitListener;
 class unitConverter {
    public:
     enum unit {
@@ -10,10 +11,7 @@ class unitConverter {
         totalCount,
         cps
     };
-    struct iUnitListener {
-        virtual void onUnitChange() = 0;
-        virtual ~iUnitListener() noexcept = default;
-    };
+
     inline static const char* unitStrings[4]{"uSv/h", "cpm", "total", "cps"};
     unitConverter(float conversionTouSvRate, const std::shared_ptr<pulseCounter>& counter);
     const char* getSelectedUnitName();

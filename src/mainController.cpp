@@ -1,5 +1,5 @@
 #include "mainController.h"
-
+#include "iController.h"
 #include "displayManager.h"
 #define irqEgdeLowEventMask 0b100
 
