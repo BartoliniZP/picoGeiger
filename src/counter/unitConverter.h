@@ -9,7 +9,8 @@ class unitConverter {
         usvh,
         cpm,
         totalCount,
-        cps
+        cps,
+        NUMBER_OF_UNITS
     };
 
     inline static const char* unitStrings[4]{"uSv/h", "cpm", "total", "cps"};

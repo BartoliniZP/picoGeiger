@@ -6,15 +6,7 @@ unitSetting::unitSetting(const std::shared_ptr<unitConverter>& ref) : unitData(r
 
 void unitSetting::changeValue() {
     if (auto tmp = unitData.lock()) {
-        unitConverter::unit current = tmp->getSelectedUnit();
-        if (current == unitConverter::usvh)
-            tmp->setUnit(unitConverter::cpm);
-        else if (current == unitConverter::cpm)
-            tmp->setUnit(unitConverter::cps);
-        else if (current == unitConverter::cps)
-            tmp->setUnit(unitConverter::totalCount);
-        else if (current == unitConverter::totalCount)
-            tmp->setUnit(unitConverter::usvh);
+        tmp->setUnit(unitConverter::unit((static_cast<int>(tmp->getSelectedUnit()) + 1) % unitConverter::unit::NUMBER_OF_UNITS));
     }
 }
 

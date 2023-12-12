@@ -1,18 +1,18 @@
 #include "measurementTimeSetting.h"
 
+#include <algorithm>
+#include <iterator>
+
 #include "../counter/pulseCounter.h"
 measurementTimeSetting::measurementTimeSetting(const std::shared_ptr<pulseCounter>& ref) : counter(ref) {
 }
 
 void measurementTimeSetting::changeValue() {
     if (auto tmp = counter.lock()) {
-        unsigned current = tmp->getMeasurementTime();
-        if (current == 15)
-            tmp->setMeasurementTime(30);
-        else if (current == 30)
-            tmp->setMeasurementTime(60);
-        else
-            tmp->setMeasurementTime(15);
+        unsigned index = std::distance(measurementTimes.begin(), std::find(measurementTimes.begin(), measurementTimes.end(), tmp->getMeasurementTime()));
+        index += 1;
+        index %= measurementTimes.size();
+        tmp->setMeasurementTime(measurementTimes[index]);
     }
 }
 

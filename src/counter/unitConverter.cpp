@@ -35,9 +35,8 @@ float unitConverter::getSelectedUnitValue() {
         } else if (selectedUnit == totalCount) {
             return tmp->getTotalCount();
         }
-    } else {
-        return 0.0f;
     }
+    return 0.0f;
 }
 
 void unitConverter::setUnitListener(const std::shared_ptr<iUnitListener>& listener) {
